@@ -1,27 +1,29 @@
 # CUSTOM
 .DS_Store
-composer.lock
+app/composer.lock
+app/yarn-error.log
 
 # Created by https://www.gitignore.io/api/laravel
 
 ### Laravel ###
-vendor/
-node_modules/
-npm-debug.log
+app/vendor/
+app/node_modules/
+app/npm-debug.log
 
 # Laravel 4 specific
-bootstrap/compiled.php
+app/bootstrap/compiled.php
 app/storage/
 
 # Laravel 5 & Lumen specific
-public/storage
-public/hot
-storage/*.key
-.env.*.php
-.env.php
-.env
-Homestead.yaml
-Homestead.json
+app/public/storage
+app/public/hot
+app/storage/*.key
+app/.env.*.php
+app/.env.php
+app/.env
+app/Homestead.yaml
+app/Homestead.json
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+app/.rocketeer/
 .rocketeer/
