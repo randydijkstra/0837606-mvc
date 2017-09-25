@@ -1,20 +1,24 @@
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name') }}</title>
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <title>{{ config('app.name') }}</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <style>
         html, body {
             background-color: #fff;
-            color: #636b6f;
+            color: #222;
             font-family: 'Raleway', sans-serif;
-            font-weight: 100;
+            font-weight: 300;
             height: 100vh;
             margin: 0;
         }
@@ -29,23 +33,8 @@
             justify-content: center;
         }
 
-        header{
-          border-bottom: 1px solid #efefef;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 42px;
-            display: inline-block;
-            width: 20%;
-        }
-
-        .links{
-          width: 75%;
-          display: inline-block;
-        }
-
         .links > a {
+
             color: #636b6f;
             padding: 0 25px;
             font-size: 12px;
