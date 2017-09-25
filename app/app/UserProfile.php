@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model
 {
-    //
+
+  public function user(){
+    $this->belongsTo('user');
+  }
 }
