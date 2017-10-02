@@ -1,3 +1,3 @@
 <footer class="flex-center">
-  <p>Airsoft Buds {{ date('Y') }}  |  0837606 </p>
+  <p>Airsoft Buds {{ date('Y') }}  |  By 0837606 R Dijkstra </p>
 </footer>
