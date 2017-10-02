@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use App\UserProfile;
 
 class UsersTableSeeder extends Seeder
 {
@@ -24,6 +25,10 @@ class UsersTableSeeder extends Seeder
       $admin->password = bcrypt('admin1234');
       $admin->save();
       $admin->roles()->attach($role_admin);
+      $player_profile = new UserProfile();
+      $player_profile->location = 'Rotterdam';
+      $player_profile->home_field = 'RSL';
+      $admin->profile()->save($player_profile);
 
       //Create users
       $player = new User();
@@ -33,6 +38,10 @@ class UsersTableSeeder extends Seeder
       $player->password = bcrypt('pass');
       $player->save();
       $player->roles()->attach($role_player);
+      $player_profile = new UserProfile();
+      $player_profile->location = 'Den Haag';
+      $player_profile->home_field = 'Running The Target';
+      $player->profile()->save($player_profile);
 
       $player = new User();
       $player->firstname = 'Hendrik';
@@ -41,6 +50,10 @@ class UsersTableSeeder extends Seeder
       $player->password = bcrypt('pass');
       $player->save();
       $player->roles()->attach($role_player);
+      $player_profile = new UserProfile();
+      $player_profile->location = 'Almere';
+      $player_profile->home_field = 'Balls & Arrows';
+      $player->profile()->save($player_profile);
 
       $player = new User();
       $player->firstname = 'Pieter';
@@ -49,6 +62,9 @@ class UsersTableSeeder extends Seeder
       $player->password = bcrypt('pass');
       $player->save();
       $player->roles()->attach($role_player);
-
+      $player_profile = new UserProfile();
+      $player_profile->location = 'Amsterdam';
+      $player_profile->home_field = 'RSL';
+      $player->profile()->save($player_profile);
     }
 }

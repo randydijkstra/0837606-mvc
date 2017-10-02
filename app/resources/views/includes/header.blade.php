@@ -14,7 +14,7 @@
 
               <!-- Branding Image -->
               <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name', '0837606') }}
               </a>
           </div>
 
@@ -31,6 +31,7 @@
                       <li><a href="{{ route('login') }}">Login</a></li>
                       <li><a href="{{ route('register') }}">Register</a></li>
                   @else
+                      <li><a href="/profile/{{ Auth::user()->id }}">My Profile</a></li>
                       <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                               {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
@@ -41,7 +42,6 @@
                                 <a href="#{{-- route('admin')--}}">Admin panel</a>
                               </li>
                             @endif
-                              <li><a href="#">My Profile</a></li>
                               <li>
                                 <a href="{{ route('logout') }}"
                                   onclick="event.preventDefault();

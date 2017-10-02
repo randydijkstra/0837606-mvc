@@ -8,6 +8,6 @@ class UserProfile extends Model
 {
 
   public function user(){
-    $this->belongsTo('user');
+    $this->belongsTo('App\User');
   }
 }
