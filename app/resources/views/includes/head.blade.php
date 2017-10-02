@@ -58,10 +58,9 @@
             text-align: center;
         }
 
-
-
         .m-b-md {
             margin-bottom: 30px;
         }
-    </style>
+
+      </style>
 </head>

@@ -17,8 +17,7 @@ class UserProfileController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function show(Request $request, $id)
-  {
+  public function show(Request $request, $id){
     $request->user()->authorizeRoles(['player', 'admin']);
 
     $user = User::findOrFail($id);
@@ -30,5 +29,13 @@ class UserProfileController extends Controller
         'profile'=>$userProfile,
       )
     );
+  }
+
+  public function index(Request $request){
+    $request->user()->authorizeRoles(['player', 'admin']);
+
+    $users = User::select('id', 'firstname', 'lastname')->get();
+
+    return view('profile/index', ['users' => $users]);
   }
 }
