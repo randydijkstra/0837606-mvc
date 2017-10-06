@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
       $role_player = Role::where('name', 'player')->first();
       $role_admin  = Role::where('name', 'admin')->first();
 
-      //Create admin
+      //--- Create admin user ---
       $admin = new User();
       $admin->firstname = 'Randy';
       $admin->lastname = 'Dijkstra';
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
       $player_profile->home_field = 'RSL';
       $admin->profile()->save($player_profile);
 
-      //Create users
+      //--- Create users ---
       $player = new User();
       $player->firstname = 'Jan';
       $player->lastname = 'Jansen';
