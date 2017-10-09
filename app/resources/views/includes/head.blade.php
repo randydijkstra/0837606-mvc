@@ -62,5 +62,9 @@
             margin-bottom: 30px;
         }
 
+        .panel-post{
+          padding: 20px;
+        }
+
       </style>
 </head>

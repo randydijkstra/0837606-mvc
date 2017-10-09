@@ -31,29 +31,31 @@
                       <li><a href="{{ route('login') }}">Login</a></li>
                       <li><a href="{{ route('register') }}">Register</a></li>
                   @else
-                      <li><a href="/profile/{{ Auth::user()->id }}">My Profile</a></li>
-                      <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                              {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
+                    <li><a href="/posts/">Posts</a></li>
+                    <li><a href="/profile/">Players</a></li>
+                    <li><a href="/profile/{{ Auth::user()->id }}">My Profile</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                        @if (Auth::user()->hasRole('admin'))
+                          <li>
+                            <a href="#{{-- route('admin')--}}">Admin panel</a>
+                          </li>
+                        @endif
+                        <li>
+                          <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            Logout
                           </a>
-                          <ul class="dropdown-menu" role="menu">
-                            @if (Auth::user()->hasRole('admin'))
-                              <li>
-                                <a href="#{{-- route('admin')--}}">Admin panel</a>
-                              </li>
-                            @endif
-                              <li>
-                                <a href="{{ route('logout') }}"
-                                  onclick="event.preventDefault();
-                                  document.getElementById('logout-form').submit();">
-                                  Logout
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                              </li>
-                          </ul>
-                      </li>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                          </form>
+                        </li>
+                        </ul>
+                    </li>
                   @endguest
               </ul>
           </div>
