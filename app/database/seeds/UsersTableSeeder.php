@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
 use App\UserProfile;
+use App\Post;
 
 class UsersTableSeeder extends Seeder
 {
@@ -29,6 +30,14 @@ class UsersTableSeeder extends Seeder
       $player_profile->location = 'Rotterdam';
       $player_profile->home_field = 'RSL';
       $admin->profile()->save($player_profile);
+      $new_post = new Post();
+      $new_post->title = str_random(10);
+      $new_post->message = str_random(200);
+      $admin->posts()->save($new_post);
+      $new_post = new Post();
+      $new_post->title = str_random(10);
+      $new_post->message = str_random(200);
+      $admin->posts()->save($new_post);
 
       //--- Create users ---
       $player = new User();
@@ -42,6 +51,11 @@ class UsersTableSeeder extends Seeder
       $player_profile->location = 'Den Haag';
       $player_profile->home_field = 'Running The Target';
       $player->profile()->save($player_profile);
+      $new_post = new Post();
+      $new_post->title = str_random(10);
+      $new_post->message = str_random(200);
+      $player->posts()->save($new_post);
+
 
       $player = new User();
       $player->firstname = 'Hendrik';
@@ -54,6 +68,10 @@ class UsersTableSeeder extends Seeder
       $player_profile->location = 'Almere';
       $player_profile->home_field = 'Balls & Arrows';
       $player->profile()->save($player_profile);
+      $new_post = new Post();
+      $new_post->title = str_random(10);
+      $new_post->message = str_random(200);
+      $player->posts()->save($new_post);
 
       $player = new User();
       $player->firstname = 'Pieter';
@@ -66,5 +84,9 @@ class UsersTableSeeder extends Seeder
       $player_profile->location = 'Amsterdam';
       $player_profile->home_field = 'RSL';
       $player->profile()->save($player_profile);
+      $new_post = new Post();
+      $new_post->title = str_random(10);
+      $new_post->message = str_random(200);
+      $player->posts()->save($new_post);
     }
 }
