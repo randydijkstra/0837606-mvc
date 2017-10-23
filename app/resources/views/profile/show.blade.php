@@ -7,7 +7,9 @@
     <a class="btn btn-default" href="/profile"><span class="btn-back">< </span>Players overview</a>
     <div class="content">
       <h2>{{ $user->firstname }} {{ $user->lastname }}</h2>
-      <p>Area: {{ $profile->location }} <br> Home field: {{ $profile->home_field }}</p>
+      @if ($profile)
+        <p>Area: {{ $profile->location }} <br> Home field: {{ $profile->home_field }}</p>        
+      @endif
     </div>
   </div>
   <div class="container">

@@ -12,8 +12,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ $user->firstname }} {{ $user->lastname}}</div>
                 <div class="panel-body">
-                  <p>Location: {{ $user->profile->location }}</p>
-                  <p>Home field: {{ $user->profile->home_field }}</p>
+                  @if ($user->profile)
+                    <p>Location: {{ $user->profile->location }}</p>
+                    <p>Home field: {{ $user->profile->home_field }}</p>                    
+                  @endif
                   <a class="btn btn-default" href="/profile/{{$user->id}}">View profile</a>
                 </div>
             </div>
