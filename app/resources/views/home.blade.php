@@ -21,7 +21,7 @@
                 <p style="color: hotpink;">You are logged in!</p>
 
                 <p>Start by posting a new message!</p>
-                <a class="btn btn-default" href="/post/create">Create post</a>
+                <a class="btn btn-default" href="/post/new">Create post</a>
             </div>
         </div>
     </div>

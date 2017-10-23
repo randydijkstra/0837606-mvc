@@ -10,7 +10,7 @@
     @include('includes.errors')
 
     <!-- New Post Form -->
-    <form action="/post" method="POST" class="form-horizontal">
+    <form action="/post/create" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Post title and message -->
