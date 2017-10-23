@@ -70,5 +70,13 @@
           padding: 20px;
         }
 
+        input.form-control{
+          margin: 10px 0;
+        }
+
+        input.form-control.textarea{
+          height: 200px;
+        }
+
       </style>
 </head>
