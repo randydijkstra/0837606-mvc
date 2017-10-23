@@ -22,6 +22,8 @@
     </div>
   @endforeach
 
-
+  <div class="col-md-6 col-md-offset-3">
+    <p>{{ $posts->links() }}</p>
+  </div>
 </div>
 @endsection

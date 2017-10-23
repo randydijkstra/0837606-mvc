@@ -33,11 +33,18 @@ class PostController extends Controller
       );
     }
 
+    public function create(Request $request){
+      $request->user()->authorizeRoles(['player', 'admin']);
+
+
+      return view('post/create');
+    }
+
     public function index(Request $request)
     {
       $request->user()->authorizeRoles(['player', 'admin']);
 
-      $posts = Post::with('user')->get();
+      $posts = Post::with('user')->simplePaginate(10);
 
       return view('post/index', ['posts' => $posts]);
     }
