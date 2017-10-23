@@ -33,9 +33,8 @@ class UserProfileController extends Controller
 
   public function index(Request $request){
     $request->user()->authorizeRoles(['player', 'admin']);
-
     $users = User::select('id', 'firstname', 'lastname')->get();
-
+    
     return view('profile/index', ['users' => $users]);
   }
 }

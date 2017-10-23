@@ -23,6 +23,10 @@
             margin: 0;
         }
 
+        p{
+          word-break: break-all;
+        }
+
         .full-height {
             height: 100vh;
         }

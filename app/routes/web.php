@@ -23,8 +23,15 @@ Route::group(['middleware' => 'auth'], function () {
     //Home
     Route::get('/', 'HomeController@index')->name('home');
 
+    //Admin panel
+
+
     //Profile
     Route::get('/profile', 'UserProfileController@index');
     Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'UserProfileController@show', function ($id) {}]);
     Route::get('/profile/{id}/edit', ['as' => 'profile', 'uses' => 'UserProfileController@edit', function ($id) {}]);
+
+    //Posts
+    Route::get('/posts', 'PostController@index');
+
 });
