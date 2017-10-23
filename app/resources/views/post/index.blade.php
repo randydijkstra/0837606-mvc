@@ -13,8 +13,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ $post->title }}</div>
                 <div class="panel-body">
-                  <p>Author: {{ $post->user->firstname }} {{ $post->user->lastname }}</p>
+                  <p>Author: <a href="/profile/{{$post->user->id}}">{{ $post->user->firstname }} {{ $post->user->lastname }}</a></p>
                   <p>{{ $post->message }}</p>
+                  <a class="btn btn-default" href="/post/{{$post->id}}">View full post</a>
                 </div>
             </div>
         </div>

@@ -12,11 +12,6 @@ class UserProfileController extends Controller
       $this->middleware('auth');
   }
 
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
   public function show(Request $request, $id){
     $request->user()->authorizeRoles(['player', 'admin']);
 
@@ -34,7 +29,7 @@ class UserProfileController extends Controller
   public function index(Request $request){
     $request->user()->authorizeRoles(['player', 'admin']);
     $users = User::select('id', 'firstname', 'lastname')->get();
-    
+
     return view('profile/index', ['users' => $users]);
   }
 }

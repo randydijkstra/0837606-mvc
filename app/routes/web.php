@@ -33,5 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Posts
     Route::get('/posts', 'PostController@index');
+    Route::get('/post/{id}', ['as' => 'post', 'uses' => 'PostController@show', function ($id) {}]);
 
 });

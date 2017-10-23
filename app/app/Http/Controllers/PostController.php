@@ -18,11 +18,21 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function show(Request $request, $id){
+      $request->user()->authorizeRoles(['player', 'admin']);
+
+      $post = Post::findOrFail($id);
+      $user = $post->user;
+
+      return view('post/show')->with(
+        array(
+          'user'=>$user,
+          'post'=>$post,
+        )
+      );
+    }
+
     public function index(Request $request)
     {
       $request->user()->authorizeRoles(['player', 'admin']);
