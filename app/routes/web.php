@@ -32,18 +32,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'UserProfileController@show', function ($id) {}]);
 
     //Users
-    Route::get('/users/');
+//    Route::get('/users/');
     Route::get('/user/{id}/posts');
     Route::get('/user/{id}/edit');
     Route::get('/user/{id}');
 
     //Posts
     Route::get('/posts', 'PostController@index');
-    Route::get('/post/new', 'PostController@create');
     Route::post('/post/new', function (Request $request) {
       $validator = Validator::make($request->all(), [
         'title' => 'required|max:255',
-        'message' => 'required|max:255',
+        'message' => 'required',
       ]);
 
       if ($validator->fails()) {
@@ -60,5 +59,6 @@ Route::group(['middleware' => 'auth'], function () {
 
       return redirect('/posts');
     });
+    Route::get('/post/new', 'PostController@create');
     Route::get('/post/{id}', ['as' => 'post', 'uses' => 'PostController@show', function ($id) {}]);
 });
