@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Profile
     Route::get('/profile', 'UserProfileController@index');
-    Route::get('/profile/{id}/edit', ['as' => 'profile', 'uses' => 'UserProfileController@edit', function ($id) {}]);
+    Route::get('/profile/edit', ['as' => 'profile', 'uses' => 'UserProfileController@edit', function ($id) {}]);
     Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'UserProfileController@show', function ($id) {}]);
 
     //Users

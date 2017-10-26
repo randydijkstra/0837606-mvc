@@ -29,6 +29,17 @@ class UserProfileController extends Controller
     );
   }
 
+  public function edit(Request $request){
+    $request->user()->authorizeRoles(['player', 'admin']);
+    $current_user = $request->user();
+
+    return view('profile/edit')->with(
+      array(
+        'user'=>$current_user
+      )
+    );
+  }
+
   public function index(Request $request){
     $request->user()->authorizeRoles(['player', 'admin']);
     $users = User::select('id', 'firstname', 'lastname')->get();

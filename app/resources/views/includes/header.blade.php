@@ -45,6 +45,16 @@
                           </li>
                         @endif
                         <li>
+                          <a href="/profile/edit">
+                            Edit my profile
+                          </a>
+                        </li>
+                        <li>
+                          <a href="/user/{{Auth::user()->id}}/posts/">
+                            My post history
+                          </a>
+                        </li>
+                        <li>
                           <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
