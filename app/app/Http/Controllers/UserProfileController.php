@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 
 class UserProfileController extends Controller
 {
@@ -17,11 +18,13 @@ class UserProfileController extends Controller
 
     $user = User::findOrFail($id);
     $userProfile = $user->profile;
+    $posts = $user->posts->sortByDesc('created_at')->take(4);
 
     return view('profile/show')->with(
       array(
         'user'=>$user,
         'profile'=>$userProfile,
+        'posts'=>$posts
       )
     );
   }

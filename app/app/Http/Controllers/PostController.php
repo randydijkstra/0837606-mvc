@@ -36,7 +36,6 @@ class PostController extends Controller
     public function create(Request $request){
       $request->user()->authorizeRoles(['player', 'admin']);
 
-
       return view('post/create');
     }
 
@@ -44,7 +43,7 @@ class PostController extends Controller
     {
       $request->user()->authorizeRoles(['player', 'admin']);
 
-      $posts = Post::with('user')->simplePaginate(10);
+      $posts = Post::with('user')->orderBy('created_at', 'DESC')->simplePaginate(10);
 
       return view('post/index', ['posts' => $posts]);
     }

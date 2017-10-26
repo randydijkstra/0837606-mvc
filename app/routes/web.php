@@ -42,8 +42,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/post/new', 'PostController@create');
     Route::post('/post/new', function (Request $request) {
       $validator = Validator::make($request->all(), [
-        'title' => 'required|max:140',
-        'message' => 'required|max:800',
+        'title' => 'required|max:255',
+        'message' => 'required|max:255',
       ]);
 
       if ($validator->fails()) {

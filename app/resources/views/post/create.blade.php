@@ -10,7 +10,7 @@
     @include('includes.errors')
 
     <!-- New Post Form -->
-    <form action="/post/create" method="POST" class="form-horizontal">
+    <form action="/post/new" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Post title and message -->
@@ -24,12 +24,12 @@
           <div class="col-sm-12">
             <label for="post" class="col-sm-3 control-label">Post message</label>
             <div class="col-sm-8">
-              <textarea rows="8" name="message" id="post-message" class="form-control"></textarea>
+              <textarea name="message" id="post-message" class="form-control"></textarea>
             </div>
           </div>
         </div>
 
-        <!-- Add Task Button -->
+        <!-- Add Post Button -->
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-6">
                 <button type="submit" class="btn btn-default">Submit post</button>
