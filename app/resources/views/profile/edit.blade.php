@@ -13,9 +13,6 @@
                 <div class="panel-body">
 
                   @if ($user->profile)
-                    {{-- <p>Location: {{ $user->profile->location }}</p>
-                    <p>Home field: {{ $user->profile->home_field }}</p> --}}
-
                     <form action="/profile/edit" method="POST" class="form-horizontal">
                       {{ csrf_field() }}
                       <div class="form-group">
@@ -28,6 +25,18 @@
                         <label class="control-label col-sm-2" >Lastname</label>
                         <div class="col-sm-10">
                             <input type="text" name="lastname" id="lastname" class="form-control" value="{{ $user->lastname }}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-sm-2" >Location</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="location" id="location" class="form-control" value="{{ $user->profile->location}}">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-sm-2" >Homefield</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="homefield" id="homefield" class="form-control" value="{{ $user->profile->home_field }}">
                         </div>
                       </div>
                       <div class="form-group">

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\UserProfile;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
       $validator = Validator::make($request->all(), [
         'firstname' => 'required|max:255',
         'lastname' => 'required',
+        'location' => 'required',
+        'homefield' => 'required',
       ]);
 
       if ($validator->fails()) {
@@ -42,9 +45,13 @@ Route::group(['middleware' => 'auth'], function () {
       }
 
       $user = Auth::user();
+
       $user->firstname = $request->firstname;
       $user->lastname = $request->lastname;
+      $user->profile->location = $request->location;
+      $user->profile->home_field = $request->homefield;
       $user->save();
+      $user->profile->save();
       return redirect('/profile/edit');
     });
     Route::get('/profile/edit', ['as' => 'profile', 'uses' => 'UserProfileController@edit', function ($id) {}]);
