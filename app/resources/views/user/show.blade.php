@@ -8,7 +8,7 @@
   <ul>
       <li>{{ Auth::user()->firstname }} </li>
       <li>{{ Auth::user()->lastname }}</li>
-      <li>{{ Auth::user()->emai }}</li>
+      <li>{{ Auth::user()->email }}</li>
   </ul>
 
 </div>
