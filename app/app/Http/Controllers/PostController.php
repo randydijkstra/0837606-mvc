@@ -78,6 +78,28 @@ class PostController extends Controller
 
     }
 
+    public function delete(Request $request, $id){
+      $request->user()->authorizeRoles(['player', 'admin']);
+
+      $post = Post::findOrFail($id);
+
+      if ($request->user()->id !== $post->user_id)
+      {
+        if (!$request->user()->hasRole('admin')) {
+          return redirect()->route('home')->withError("Un-Authorise access");
+        }
+      }
+
+      //update post data
+      Post::find($id)->delete();
+
+      //store status message
+      Session::flash('delete_success_msg', 'Post deleted successfully!');
+
+      return redirect()->route('user.posts', ['id' => $id]);
+    }
+
+
     public function index(Request $request)
     {
       $request->user()->authorizeRoles(['player', 'admin']);

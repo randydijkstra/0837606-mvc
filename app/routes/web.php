@@ -40,18 +40,22 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //Users
-    Route::get('/user/{id}/posts',  ['as' => 'userPosts', 'uses' => 'PostController@userPosts', function ($id) {}]);
+    Route::get('/user/{id}/posts', [ 'as' => 'user.posts', 'uses' => 'PostController@userPosts', function ($id) {}]);
     Route::get('/user/{id}/edit');
     Route::get('/user/{id}');
 
 
     //Posts
     Route::post('/post/new', 'PostController@create')->name('post.create');
+    Route::get('/post/delete/{id}', 'PostController@delete')->name('post.delete');
 
     Route::get('/posts', 'PostController@index');
     Route::get('/post/new', function () {
       return view('post/create');
     });
+    // Route::get('/post/{id}/delete', function(){
+    //   return view('post/delete');
+    // });
 
     Route::get('/post/{id}/edit', 'PostController@edit');
     Route::get('/post/{id}', ['as' => 'post', 'uses' => 'PostController@show', function ($id) {}]);
