@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 
+use Session;
+use Validator;
+
 class UserProfileController extends Controller
 {
   public function __construct()
@@ -31,13 +34,33 @@ class UserProfileController extends Controller
 
   public function edit(Request $request){
     $request->user()->authorizeRoles(['player', 'admin']);
-    $current_user = $request->user();
 
-    return view('profile/edit')->with(
-      array(
-        'user'=>$current_user
-      )
-    );
+    $validator = Validator::make($request->all(), [
+      'firstname' => 'required|max:255',
+      'lastname' => 'required',
+      'location' => 'required',
+      'homefield' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      return redirect('/')
+        ->withInput()
+        ->withErrors($validator);
+    }
+
+    $user = $request->user();
+
+    $user->firstname = $request->firstname;
+    $user->lastname = $request->lastname;
+    $user->profile->location = $request->location;
+    $user->profile->home_field = $request->homefield;
+    $user->save();
+    $user->profile->save();
+
+    //store status message
+    Session::flash('success_msg', 'Profile updated successfully!');
+
+    return redirect('/profile/edit');
   }
 
   public function index(Request $request){

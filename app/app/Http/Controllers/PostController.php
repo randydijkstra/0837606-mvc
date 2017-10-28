@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 
+use Session;
+
 class PostController extends Controller
 {
     /**
@@ -36,7 +38,44 @@ class PostController extends Controller
     public function create(Request $request){
       $request->user()->authorizeRoles(['player', 'admin']);
 
-      return view('post/create');
+      $this->validate($request, [
+       'title' => 'required',
+       'message' => 'required'
+      ]);
+
+      $post = new Post;
+      $post->title = $request->title;
+      $post->message = $request->message;
+      $post->user_id = $request->user()->id;
+      $post->save();
+
+      //store status message
+      Session::flash('success_msg', 'Post posted successfully!');
+
+      return redirect('/posts');
+    }
+
+    public function edit(){
+
+      //   $validator = Validator::make($request->all(), [
+      //     'title' => 'required|max:255',
+      //     'message' => 'required',
+      //   ]);
+      //
+      //   if ($validator->fails()) {
+      //     return redirect('/')
+      //       ->withInput()
+      //       ->withErrors($validator);
+      //   }
+      //
+      //   $post = new Post;
+      //   $post->title = $request->title;
+      //   $post->message = $request->message;
+      //   $post->user_id = Auth::user()->id;
+      //   $post->save();
+      //
+      //   return redirect('/posts');
+
     }
 
     public function index(Request $request)
@@ -46,6 +85,15 @@ class PostController extends Controller
       $posts = Post::with('user')->orderBy('created_at', 'DESC')->simplePaginate(10);
 
       return view('post/index', ['posts' => $posts]);
+    }
+
+    public function userPosts(Request $request){
+      $request->user()->authorizeRoles(['player', 'admin']);
+
+      $user = $request->user();
+      $posts = $user->posts()->get();
+
+      return view('/user/posts', ['posts' => $posts]);
     }
 
     /*

@@ -26,65 +26,33 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     //Admin panel
+    Route::get('/users');
 
 
     //Profile
+    Route::post('/profile/edit', 'UserProfileController@edit');
+
     Route::get('/profile', 'UserProfileController@index');
-    Route::post('/profile/edit', function (Request $request) {
-      $validator = Validator::make($request->all(), [
-        'firstname' => 'required|max:255',
-        'lastname' => 'required',
-        'location' => 'required',
-        'homefield' => 'required',
-      ]);
-
-      if ($validator->fails()) {
-        return redirect('/')
-          ->withInput()
-          ->withErrors($validator);
-      }
-
-      $user = Auth::user();
-
-      $user->firstname = $request->firstname;
-      $user->lastname = $request->lastname;
-      $user->profile->location = $request->location;
-      $user->profile->home_field = $request->homefield;
-      $user->save();
-      $user->profile->save();
-      return redirect('/profile/edit');
+    Route::get('/profile/edit', function () {
+      return view('profile/edit');
     });
-    Route::get('/profile/edit', ['as' => 'profile', 'uses' => 'UserProfileController@edit', function ($id) {}]);
     Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'UserProfileController@show', function ($id) {}]);
 
+
     //Users
-//    Route::get('/users/');
-    Route::get('/user/{id}/posts');
+    Route::get('/user/{id}/posts',  ['as' => 'userPosts', 'uses' => 'PostController@userPosts', function ($id) {}]);
     Route::get('/user/{id}/edit');
     Route::get('/user/{id}');
 
+
     //Posts
+    Route::post('/post/new', 'PostController@create')->name('post.create');
+
     Route::get('/posts', 'PostController@index');
-    Route::post('/post/new', function (Request $request) {
-      $validator = Validator::make($request->all(), [
-        'title' => 'required|max:255',
-        'message' => 'required',
-      ]);
-
-      if ($validator->fails()) {
-        return redirect('/')
-          ->withInput()
-          ->withErrors($validator);
-      }
-
-      $post = new Post;
-      $post->title = $request->title;
-      $post->message = $request->message;
-      $post->user_id = Auth::user()->id;
-      $post->save();
-
-      return redirect('/posts');
+    Route::get('/post/new', function () {
+      return view('post/create');
     });
-    Route::get('/post/new', 'PostController@create');
+
+    Route::get('/post/{id}/edit', 'PostController@edit');
     Route::get('/post/{id}', ['as' => 'post', 'uses' => 'PostController@show', function ($id) {}]);
 });

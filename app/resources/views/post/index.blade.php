@@ -5,7 +5,9 @@
 
   <h2>Posts</h2>
 
-
+  @if(Session::has('success_msg'))
+    <div class="alert alert-success">{{ Session::get('success_msg') }}</div>
+  @endif
 
   @foreach ($posts as $post)
     <div class="row post">
@@ -22,8 +24,10 @@
     </div>
   @endforeach
 
-  <div class="col-md-6 col-md-offset-3">
-    <p>{{ $posts->links() }}</p>
-  </div>
+  @if ($posts->links())
+    <div class="col-md-6 col-md-offset-3">
+      <p>{{ $posts->links() }}</p>
+    </div>
+  @endif
 </div>
 @endsection
