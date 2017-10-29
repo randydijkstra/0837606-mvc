@@ -27,6 +27,10 @@
           word-break: break-all;
         }
 
+        .bigheight{
+          height: 400px !important;
+        }
+
         .full-height {
             height: 100vh;
         }

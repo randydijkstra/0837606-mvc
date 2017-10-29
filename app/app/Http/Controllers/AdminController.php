@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 
 class AdminController extends Controller
 {
@@ -14,9 +15,11 @@ class AdminController extends Controller
 
   public function adminPosts(Request $request)
   {
-    checkIfAuthorized($request);
+    $this->checkIfAuthorized($request);
 
-    return view('admin/posts');
+    $posts = Post::with('user')->orderBy('created_at', 'DESC')->simplePaginate(10);
+
+    return view('admin/posts', ['posts' => $posts]);
   }
 
   public function adminUsers(Request $request)
@@ -29,8 +32,11 @@ class AdminController extends Controller
   }
 
   private function checkIfAuthorized(Request $request){
+    $request->user()->authorizeRoles('admin');
+
     if (!$request->user()->hasRole('admin')){
-      return redirect()->route('home')->withError("Un-Authorise access");
+//      return redirect()->route('home')->withError("Un-Authorise access");
+      return redirect()->route('home');
     }
   }
 }

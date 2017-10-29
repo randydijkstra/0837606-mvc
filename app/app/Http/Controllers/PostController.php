@@ -7,6 +7,7 @@ use App\Post;
 use App\User;
 
 use Session;
+use Validator;
 
 class PostController extends Controller
 {
@@ -51,27 +52,42 @@ class PostController extends Controller
       return redirect('/posts');
     }
 
-    public function edit(){
+    public function edit(Request $request, $id){
 
-      //   $validator = Validator::make($request->all(), [
-      //     'title' => 'required|max:255',
-      //     'message' => 'required',
-      //   ]);
-      //
-      //   if ($validator->fails()) {
-      //     return redirect('/')
-      //       ->withInput()
-      //       ->withErrors($validator);
-      //   }
-      //
-      //   $post = new Post;
-      //   $post->title = $request->title;
-      //   $post->message = $request->message;
-      //   $post->user_id = Auth::user()->id;
-      //   $post->save();
-      //
-      //   return redirect('/posts');
 
+      $post = Post::findOrFail($id);
+
+      if ($request->user()->hasRole('admin') || $post->user->id == $request->user()->id ) {
+
+        if ($request->isMethod('post')){
+
+          $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'message' => 'required',
+          ]);
+
+          if ($validator->fails()) {
+            return redirect()->route('post.edit', ['id' => $id])
+            ->withInput()
+            ->withErrors($validator);
+          }
+
+          $post->title = $request->title;
+          $post->message = $request->message;
+          $post->save();
+
+          Session::flash('success_msg', 'Post updated successfully!');
+
+          return redirect()->route('post.edit', ['id' => $id]);
+
+        }else{
+
+          return view('/post/edit', ['post' => $post]);
+        }
+
+      }else{
+        return redirect('home');
+      }
     }
 
     public function delete(Request $request, $id){
@@ -91,6 +107,10 @@ class PostController extends Controller
 
       //store status message
       Session::flash('delete_success_msg', 'Post deleted successfully!');
+
+      if ($request->user()->hasRole('admin')) {
+        return redirect()->route('admin.posts');
+      }
 
       return redirect()->route('user.posts', ['id' => $id]);
     }
@@ -127,6 +147,9 @@ class PostController extends Controller
         $post->save();
       }
 
+      if ($request->user()->hasRole('admin')) {
+        return redirect()->route('admin.posts');
+      }
       return redirect()->route('user.posts', ['id' => $request->user()->id]);
     }
 

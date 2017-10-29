@@ -31,7 +31,7 @@
         <p>Belongs to: {{$post->user->firstname}} {{$post->user->lastname}}</p>
       </div>
       <div class="col-md-6">
-        <a href="{{ route('post.active', $post->id) }}" class="btn   @if ($post->active == true)btn-success @endif">
+        <a href="{{ route('post.active', $post->id) }}" class="btn @if ($post->active == true)btn-success @endif">
           @if ($post->active == true)
             Active
           @else
