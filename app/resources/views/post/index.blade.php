@@ -9,6 +9,8 @@
     <div class="alert alert-success">{{ Session::get('success_msg') }}</div>
   @endif
 
+  <a class="btn btn-default" href="/post/new">Create post</a>
+
   @foreach ($posts as $post)
     <div class="row post">
         <div class="col-md-8 col-md-offset-2">

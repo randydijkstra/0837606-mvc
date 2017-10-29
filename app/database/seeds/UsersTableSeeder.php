@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
       $player = new User();
       $player->firstname = 'Jan';
       $player->lastname = 'Jansen';
-      $player->email = 'email'.str_random(5).'@email.com';
+      $player->email = 'test@email.com';
       $player->password = bcrypt('pass');
       $player->save();
       $player->roles()->attach($role_player);

@@ -104,7 +104,7 @@ class PostController extends Controller
     {
       $request->user()->authorizeRoles(['player', 'admin']);
 
-      $posts = Post::with('user')->orderBy('created_at', 'DESC')->simplePaginate(10);
+      $posts = Post::with('user')->where('active', true)->orderBy('created_at', 'DESC')->simplePaginate(10);
 
       return view('post/index', ['posts' => $posts]);
     }
@@ -116,6 +116,22 @@ class PostController extends Controller
       $posts = $user->posts()->get();
 
       return view('/user/posts', ['posts' => $posts]);
+    }
+
+    public function postStatus(Request $request, $id){
+      $request->user()->authorizeRoles(['player', 'admin']);
+
+      $post = Post::findOrFail($id);
+
+      if ($post->active == true) {
+        $post->active = false;
+        $post->save();
+      }elseif($post->active == false){
+        $post->active = true;
+        $post->save();
+      }
+
+      return redirect()->route('user.posts', ['id' => $request->user()->id]);
     }
 
     /*

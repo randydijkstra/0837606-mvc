@@ -21,7 +21,7 @@ class UserProfileController extends Controller
 
     $user = User::findOrFail($id);
     $userProfile = $user->profile;
-    $posts = $user->posts->sortByDesc('created_at')->take(4);
+    $posts = $user->posts->where('active', true)->sortByDesc('created_at')->take(4);
 
     return view('profile/show')->with(
       array(

@@ -26,7 +26,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     //Admin panel
-    Route::get('/users');
+    Route::get('/admin', function(){
+      if (Auth::user()->hasRole('admin')){
+        return view('admin/index');
+      }else{
+        return redirect()->route('home')->withError("Un-Authorise access");
+      }
+    });
 
 
     //Profile
@@ -47,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Posts
     Route::post('/post/new', 'PostController@create')->name('post.create');
+    Route::get('/post/active/{id}', 'PostController@postStatus')->name('post.active');
+
     Route::get('/post/delete/{id}', 'PostController@delete')->name('post.delete');
 
     Route::get('/posts', 'PostController@index');
