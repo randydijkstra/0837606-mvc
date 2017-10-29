@@ -13,7 +13,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-
+      <ul>
+        <li><a href="/admin/users">All users</a></li>
+        <li><a href="/admin/posts">All posts</a></li>
+      </ul>
     </div>
   </div>
 </div>
