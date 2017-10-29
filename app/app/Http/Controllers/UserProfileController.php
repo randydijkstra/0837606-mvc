@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\UserProfile;
 
 use Session;
 use Validator;
@@ -103,8 +104,21 @@ class UserProfileController extends Controller
 
   public function index(Request $request){
     $request->user()->authorizeRoles(['player', 'admin']);
+
+    if ($request->query('location')) {
+
+      $location = $request->query('location');
+
+      $users = User::select('id', 'firstname', 'lastname')->get();
+    }else{
+      $users = User::select('id', 'firstname', 'lastname')->get();
+    }
+
     $users = User::select('id', 'firstname', 'lastname')->get();
 
-    return view('profile/index', ['users' => $users]);
+    $locations = UserProfile::distinct('location')->pluck('location');
+
+
+    return view('profile/index', ['users' => $users, 'locations' => $locations]);
   }
 }

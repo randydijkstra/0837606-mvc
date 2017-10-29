@@ -31,6 +31,10 @@
           height: 400px !important;
         }
 
+        .padding-bottom{
+          padding-bottom: 30px;
+        }
+
         .full-height {
             height: 100vh;
         }
