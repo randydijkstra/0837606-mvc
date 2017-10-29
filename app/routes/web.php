@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
         return redirect()->route('home')->withError("Un-Authorise access");
       }
     });
-    Route::get('/admin/users', 'AdminController@adminUsers');
+    Route::get('/admin/users', 'AdminController@adminUsers')->name('admin.users');
     Route::get('/admin/posts', function(){
       if (Auth::user()->hasRole('admin')){
         return view('admin/index');
@@ -43,17 +43,21 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Profile
     Route::post('/profile/edit', 'UserProfileController@edit');
+    Route::post('/profile/{id}/edit', 'UserProfileController@edit');
 
     Route::get('/profile', 'UserProfileController@index');
     Route::get('/profile/edit', function () {
       return view('profile/edit');
     });
+    Route::get('/profile/{id}/edit', ['as' => 'profile', 'uses' => 'UserProfileController@edit', function ($id) {}]);
+
     Route::get('/profile/{id}', ['as' => 'profile', 'uses' => 'UserProfileController@show', function ($id) {}]);
 
 
     //Users
     Route::get('/user/{id}/posts', [ 'as' => 'user.posts', 'uses' => 'PostController@userPosts', function ($id) {}]);
     Route::get('/user/{id}/edit');
+    Route::get('/user/delete/{id}', 'UserProfileController@delete')->name('user.delete');
     Route::get('/user/{id}');
 
 

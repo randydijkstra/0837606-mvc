@@ -23,9 +23,9 @@ class AdminController extends Controller
   {
     $this->checkIfAuthorized($request);
 
-    $users = User::select('id', 'firstname', 'lastname', 'email')->get();
-    return view('admin/users', ['users' => $users]);
+    $users = User::select('id', 'firstname', 'lastname', 'email')->withCount('posts')->get();
 
+    return view('admin/users', ['users' => $users]);
   }
 
   private function checkIfAuthorized(Request $request){

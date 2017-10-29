@@ -32,7 +32,14 @@ class UserProfileController extends Controller
     );
   }
 
-  public function edit(Request $request){
+  public function edit(Request $request, $id = null){
+    $method = $request->method();
+
+    if ($request->isMethod('get') && $id && $request->user()->hasRole('admin')) {
+      $user = User::findOrFail($id);
+      return view('/user/edit', ['user' => $user]);
+    }
+
     $request->user()->authorizeRoles(['player', 'admin']);
 
     $validator = Validator::make($request->all(), [
@@ -48,7 +55,11 @@ class UserProfileController extends Controller
         ->withErrors($validator);
     }
 
-    $user = $request->user();
+    if ($id) {
+      $user = User::findOrFail($id);
+    }else{
+      $user = $request->user();
+    }
 
     $user->firstname = $request->firstname;
     $user->lastname = $request->lastname;
@@ -60,8 +71,35 @@ class UserProfileController extends Controller
     //store status message
     Session::flash('success_msg', 'Profile updated successfully!');
 
-    return redirect('/profile/edit');
+    if ($id) {
+      return redirect()->route('admin.users');
+    }else{
+      return redirect('/profile/edit');
+    }
   }
+
+
+  public function delete(Request $request, $id){
+    $request->user()->authorizeRoles(['player', 'admin']);
+
+    $user = Post::findOrFail($id);
+
+    if ($request->user()->id !== $user->user_id)
+    {
+      if (!$request->user()->hasRole('admin')) {
+        return redirect()->route('home')->withError("Un-Authorise access");
+      }
+    }
+
+    //update post data
+    User::find($id)->delete();
+
+    //store status message
+    Session::flash('delete_success_msg', 'User deleted successfully!');
+
+    return redirect()->route('admin.users', ['id' => $id]);
+  }
+
 
   public function index(Request $request){
     $request->user()->authorizeRoles(['player', 'admin']);
